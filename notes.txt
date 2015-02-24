@@ -1,3 +1,7 @@
 To resize microSD card size (beyond 1-4 GB from the BBB images)
     http://elinux.org/Beagleboard:Expanding_File_System_Partition_On_A_microSD
     
+
+
+
+needs "apt-get install libv4l-dev"
