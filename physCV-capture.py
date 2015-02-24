@@ -67,6 +67,7 @@ plt.imshow(img1, 'gray'),plt.show()
 #store img1 & perspectiveTransform & points into time frams of appropriate data type
 #)  end the numFrame for loop()
 
+#real time clock values??
 
 cap.release()
 ##visualization code here using matplotlib
