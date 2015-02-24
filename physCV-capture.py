@@ -1,5 +1,7 @@
 ##BRCarroll OpenCV Kinematics Lab   Feb 18, 2015
 ##adapted from OpenCV.org tutorials for video capture & feature detection
+#http://docs.opencv.org/trunk/doc/py_tutorials/py_feature2d/py_matcher/py_matcher.html
+#http://docs.opencv.org/trunk/doc/py_tutorials/py_calib3d/py_calibration/py_calibration.html#calibration
 ##<insert links…>
 
 
@@ -13,16 +15,21 @@ MIN_MATCH_COUNT = 10
 ##open video capture
 cap=cv2.VideoCapture()   #create VideoCapture class
 
+cap.set(cv.CV_CAP_PROP_FRAME_WIDTH, 1920)
+cap.set(cv.CV_CAP_PROP_FRAME_HEIGHT, 1080)
+#might need to transform to 8-bit greyscale for analysis
+
 ret, img1 = cap.read()      # queryImage
 img2 = cv2.imread('box_in_scene.png',0) # trainImage
 
 # Initiate SIFT detector
 sift = cv2.SIFT()
 
-# find the keypoints and descriptors with SIFT
+# find the keypoints and descriptors with SIFT - Scale Invariant Feature Transform
 kp1, des1 = sift.detectAndCompute(img1,None)
 kp2, des2 = sift.detectAndCompute(img2,None)
 
+#Fast Library for Approximate Nearest Neighbors. 
 FLANN_INDEX_KDTREE = 0
 index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
 search_params = dict(checks = 50)
