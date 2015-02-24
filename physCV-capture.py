@@ -19,6 +19,7 @@ cap.set(cv.CV_CAP_PROP_FRAME_WIDTH, 1920)
 cap.set(cv.CV_CAP_PROP_FRAME_HEIGHT, 1080)
 #might need to transform to 8-bit greyscale for analysis
 
+#for( i < numFrames, i++ #kinda thing  sets up number of frames to capture
 ret, img1 = cap.read()      # queryImage
 img2 = cv2.imread('box_in_scene.png',0) # trainImage
 
@@ -63,6 +64,11 @@ else:
 
 plt.imshow(img1, 'gray'),plt.show()
 
+#store img1 & perspectiveTransform & points into time frams of appropriate data type
+#)  end the numFrame for loop()
+
+
+cap.release()
 ##visualization code here using matplotlib
 ##initialize HD capture & analysis based on PRU register value connected to physical switch or web
 ##output HD capture video & analysis via matplotlib fanciness
