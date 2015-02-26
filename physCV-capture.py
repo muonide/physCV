@@ -21,7 +21,7 @@ cap.set(cv.CV_CAP_PROP_FRAME_HEIGHT, 1080)
 
 #for( i < numFrames, i++ #kinda thing  sets up number of frames to capture
 ret, img1 = cap.read()      # queryImage
-img2 = cv2.imread('box_in_scene.png',0) # trainImage
+img2 = cv2.imread('reference.jpg',0) # trainImage
 
 # Initiate SIFT detector
 sift = cv2.SIFT()
