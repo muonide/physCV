@@ -15,8 +15,8 @@ MIN_MATCH_COUNT = 10
 ##open video capture
 cap=cv2.VideoCapture()   #create VideoCapture class
 
-cap.set(cv.CV_CAP_PROP_FRAME_WIDTH, 1920)
-cap.set(cv.CV_CAP_PROP_FRAME_HEIGHT, 1080)
+cap.set(cv2.CV_CAP_PROP_FRAME_WIDTH, 1920)
+cap.set(cv2.CV_CAP_PROP_FRAME_HEIGHT, 1080)
 #might need to transform to 8-bit greyscale for analysis
 
 #for( i < numFrames, i++ #kinda thing  sets up number of frames to capture
