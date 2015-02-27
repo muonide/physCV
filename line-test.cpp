@@ -13,8 +13,8 @@ VideoCapture cap(0); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return -1;
     
-Mat src;
-cap >> src:
+ Mat src;
+ cap >> src;
  
     Mat dst, cdst;
     Canny(src, dst, 50, 200, 3); 
