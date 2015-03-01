@@ -40,7 +40,14 @@ int frame_width=   cap.get(CV_CAP_PROP_FRAME_WIDTH);
 
    Mat src;
  
-for()   //setup number of captures...maybe make this a while?  need to deal with fps issue?
+ nextFrameTimestamp = microsec_clock::local_time();
+	currentFrameTimestamp = nextFrameTimestamp;
+	td = (currentFrameTimestamp - nextFrameTimestamp);
+ 
+	// start thread to begin capture and populate Mat frame
+	boost::thread captureThread(captureFunc, &frame, &capture);
+ 
+for(;;)   //setup number of captures...maybe make this a while?  need to deal with fps issue?
 [
 
  cap >> src;
