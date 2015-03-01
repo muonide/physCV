@@ -16,26 +16,29 @@ bool acceptLinePair(Vec2f line1, Vec2f line2, float minTheta);
 
 int main(int argc, char* argv[])
 {
-    Mat occludedSquare = imread("Square.jpg");
-
-    resize(occludedSquare, occludedSquare, Size(0, 0), 0.25, 0.25);
-
-    Mat occludedSquare8u;
-    cvtColor(occludedSquare, occludedSquare8u, CV_BGR2GRAY);
-
-    Mat thresh;
-    threshold(occludedSquare8u, thresh, 200.0, 255.0, THRESH_BINARY);
-
-    GaussianBlur(thresh, thresh, Size(7, 7), 2.0, 2.0);
-
-    Mat edges;
-    Canny(thresh, edges, 66.0, 133.0, 3);
-
+    VideoCapture cap(0); // open the default camera
+    if(!cap.isOpened())  // check if we succeeded
+        return -1;
+cap.set(CV_CAP_PROP_FRAME_WIDTH=800);
+cap.set(CV_CAP_PROP_FRAME_HEIGHT=600);
+ Mat src;
+ cap >> src;
+ 
+    Mat dst, cdst, ddst;
+    cvtColor(src, grey, CV_BGR2GRAY);
+    Canny(grey, edges, 50, 200, 3); 
+    cvtColor(edges, edges, CV_GRAY2BGR); 
+    
     vector<Vec2f> lines;
-    HoughLines( edges, lines, 1, CV_PI/180, 50, 0, 0 );
-
-    cout << "Detected " << lines.size() << " lines." << endl;
-
+    HoughLines( edges, lines, 1, CV_PI/180, 50, 50, 0 );
+//    HoughLinesP( edges, lines, 1 CV_PI/180, 50, 50, 10)
+//    cout << "Detected " << lines.size() << " lines." << endl;
+//for( size_t i = 0; i < lines.size(); i++ )
+//  {
+//    Vec4i l = lines[i];   //pick a 4x1 array out of the lines matrix
+//    line( src, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, CV_AA);   
+//    //draw lines onto ddst that connects the poinnts defined in that 4x1 array, Scalar(0,0,255) defines the color red
+//  }
     // compute the intersection from the lines detected...
     vector<Point2f> intersections;
     for( size_t i = 0; i < lines.size(); i++ )
@@ -44,7 +47,7 @@ int main(int argc, char* argv[])
         {
             Vec2f line1 = lines[i];
             Vec2f line2 = lines[j];
-            if(acceptLinePair(line1, line2, CV_PI / 32))
+            if(acceptLinePair(line1, line2, CV_PI / 32))  //line pair...
             {
                 Point2f intersection = computeIntersect(line1, line2);
                 intersections.push_back(intersection);
@@ -59,12 +62,15 @@ int main(int argc, char* argv[])
         for(i = intersections.begin(); i != intersections.end(); ++i)
         {
             cout << "Intersection is " << i->x << ", " << i->y << endl;
-            circle(occludedSquare, *i, 1, Scalar(0, 255, 0), 3);
+            circle(src, *i, 1, Scalar(0, 255, 0), 3);
         }
     }
 
-    imshow("intersect", occludedSquare);
-    waitKey();
+    //imshow("intersect", src);
+    imwrite("edges.png",edges)
+    imwrite("intersect.png",src);
+   
+   // waitKey();
 
     return 0;
 }
