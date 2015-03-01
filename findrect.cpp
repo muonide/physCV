@@ -31,14 +31,7 @@ cap.set(CV_CAP_PROP_FRAME_HEIGHT=600);
     
     vector<Vec2f> lines;
     HoughLines( edges, lines, 1, CV_PI/180, 50, 50, 0 );
-//    HoughLinesP( edges, lines, 1 CV_PI/180, 50, 50, 10)
-//    cout << "Detected " << lines.size() << " lines." << endl;
-//for( size_t i = 0; i < lines.size(); i++ )
-//  {
-//    Vec4i l = lines[i];   //pick a 4x1 array out of the lines matrix
-//    line( src, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, CV_AA);   
-//    //draw lines onto ddst that connects the poinnts defined in that 4x1 array, Scalar(0,0,255) defines the color red
-//  }
+
     // compute the intersection from the lines detected...
     vector<Point2f> intersections;
     for( size_t i = 0; i < lines.size(); i++ )
