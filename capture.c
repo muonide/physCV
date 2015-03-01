@@ -499,7 +499,7 @@ static void init_device(void)
 		else if(force_format==1){
 			fmt.fmt.pix.width	= 800;
 			fmt.fmt.pix.height	= 600;
-			fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUV420P;
+			fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUV420;
 			fmt.fmt.pix.field	= V4L2_FIELD_INTERLACED;
 		}
 
