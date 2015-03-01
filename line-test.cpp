@@ -12,12 +12,13 @@ int main(int, char**)
 VideoCapture cap(0); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return -1;
-    
+cap.set(CV_CAP_PROP_FRAME_WIDTH=800);
+cap.set(CV_CAP_PROP_FRAME_HEIGHT=600);
  Mat src;
  cap >> src;
  
     Mat dst, cdst, ddst;
-    cvtColor(src, dst, CV_BGR2GRAY)
+    cvtColor(src, dst, CV_BGR2GRAY);
     Canny(dst, cdst, 50, 200, 3); 
     cvtColor(cdst, ddst, CV_GRAY2BGR); 
  
@@ -49,7 +50,7 @@ VideoCapture cap(0); // open the default camera
  
     imwrite("source.png", src); //write original capture
     imwrite("edges.png", cdst); //write Canny image
-    imwrite("lines.png", ddst): //write Canny + lines
+    imwrite("lines.png", ddst); //write Canny + lines
     waitKey();
     return 0;
 }
