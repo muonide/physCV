@@ -19,12 +19,12 @@ int main(int argc, char* argv[])
     VideoCapture cap(0); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return -1;
-cap.set(CV_CAP_PROP_FRAME_WIDTH=800);
-cap.set(CV_CAP_PROP_FRAME_HEIGHT=600);
+cap.set(CV_CAP_PROP_FRAME_WIDTH,800);
+cap.set(CV_CAP_PROP_FRAME_HEIGHT,600);
  Mat src;
  cap >> src;
  
-    Mat dst, cdst, ddst;
+    Mat grey, edges;
     cvtColor(src, grey, CV_BGR2GRAY);
     Canny(grey, edges, 50, 200, 3); 
     cvtColor(edges, edges, CV_GRAY2BGR); 
@@ -59,9 +59,10 @@ cap.set(CV_CAP_PROP_FRAME_HEIGHT=600);
         }
     }
 
-    //imshow("intersect", src);
-    imwrite("edges.png",edges)
+//    imwrite("corners.png", src);
+    imwrite("edges.png",edges);
     imwrite("intersect.png",src);
+    imwrite("grey.png",grey);
    
    // waitKey();
 
