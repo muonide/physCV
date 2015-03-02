@@ -12,8 +12,8 @@ int main(int, char**)
 VideoCapture cap(0); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return -1;
-cap.set(CV_CAP_PROP_FRAME_WIDTH=800);
-cap.set(CV_CAP_PROP_FRAME_HEIGHT=600);
+cap.set(CV_CAP_PROP_FRAME_WIDTH,800);
+cap.set(CV_CAP_PROP_FRAME_HEIGHT,600);
  Mat src;
  cap >> src;
  
