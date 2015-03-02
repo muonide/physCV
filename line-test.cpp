@@ -17,7 +17,7 @@ cap.set(CV_CAP_PROP_FRAME_HEIGHT=600);
  Mat src;
  cap >> src;
  
-    Mat dst, cdst, ddst;
+    Mat dst, cdst, ddst;  //dst = grey image, cdst = edges in greyscale, ddst = edges RGB
     cvtColor(src, dst, CV_BGR2GRAY);
     Canny(dst, cdst, 50, 200, 3); 
     cvtColor(cdst, ddst, CV_GRAY2BGR); 
