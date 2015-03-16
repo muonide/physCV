@@ -17,20 +17,25 @@ bool acceptLinePair(Vec2f line1, Vec2f line2, float minTheta);
 int main(int argc, char* argv[])
 {
     VideoCapture cap(0); // open the default camera
-    if(!cap.isOpened())  // check if we succeeded
+    if(!cap.isOpened()){  // check if we succeeded
         return -1;
+	}
 cap.set(CV_CAP_PROP_FRAME_WIDTH,800);
 cap.set(CV_CAP_PROP_FRAME_HEIGHT,600);
+//cap.set(CV_CAP_PROP_FOCUS_AUTO,1);
+//cap.set(CV_CAP_PROP_EXPOSURE_AUTO,3);
+
  Mat src;
  cap >> src;
  
     Mat grey, edges;
+//    GaussianBlur(src, blur, Size(7,7), 2.0, 2.0);
     cvtColor(src, grey, CV_BGR2GRAY);
-    Canny(grey, edges, 50, 200, 3); 
-    cvtColor(edges, edges, CV_GRAY2BGR); 
+    Canny(grey, edges, 100, 200, 3); 
+    //cvtColor(edges, edges, CV_GRAY2BGR); 
     
     vector<Vec2f> lines;
-    HoughLines( edges, lines, 1, CV_PI/180, 50, 50, 0 );
+    HoughLines( edges, lines, 1, CV_PI/180, 120, 0, 0 );
 
     // compute the intersection from the lines detected...
     vector<Point2f> intersections;
@@ -60,6 +65,7 @@ cap.set(CV_CAP_PROP_FRAME_HEIGHT,600);
     }
 
 //    imwrite("corners.png", src);
+//	imwrite("blur.png", blur);
     imwrite("edges.png",edges);
     imwrite("intersect.png",src);
     imwrite("grey.png",grey);
