@@ -16,10 +16,6 @@ bool acceptLinePair(Vec2f line1, Vec2f line2, float minTheta);
 
 int main(int argc, char* argv[])
 {
-   time_duration td, td1;
-	ptime nextFrameTimestamp, currentFrameTimestamp, initialLoopTimestamp, finalLoopTimestamp;
-	int delayFound = 0;
-	int totalDelay= 0;
    
     VideoCapture cap(0); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
