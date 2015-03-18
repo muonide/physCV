@@ -17,8 +17,6 @@ Point2f computeIntersect(Vec2f line1, Vec2f line2);
 vector<Point2f> lineToPointPair(Vec2f line);
 bool acceptLinePair(Vec2f line1, Vec2f line2, float minTheta);
 
-
-
 int main(int argc, char* argv[])
 {
    time_duration td, td1;
@@ -40,12 +38,7 @@ int frame_width=   cap.get(CV_CAP_PROP_FRAME_WIDTH);
 
    Mat src;
  
- nextFrameTimestamp = microsec_clock::local_time();
-	currentFrameTimestamp = nextFrameTimestamp;
-	td = (currentFrameTimestamp - nextFrameTimestamp);
  
-	// start thread to begin capture and populate Mat frame
-	boost::thread captureThread(captureFunc, &frame, &capture);
  
 for(;;)   //setup number of captures...maybe make this a while?  need to deal with fps issue?
 [
@@ -55,10 +48,10 @@ for(;;)   //setup number of captures...maybe make this a while?  need to deal wi
     Mat dst, cdst, ddst;
     cvtColor(src, grey, CV_BGR2GRAY);
     Canny(grey, edges, 50, 200, 3); 
-    cvtColor(edges, edges, CV_GRAY2BGR); 
+    //cvtColor(edges, edges, CV_GRAY2BGR); 
     
     vector<Vec2f> lines;
-    HoughLines( edges, lines, 1, CV_PI/180, 50, 50, 0 );
+    HoughLines( edges, lines, 1, CV_PI/90, 50, 0, 0 );
 
     // compute the intersection from the lines detected...
     vector<Point2f> intersections;
@@ -88,7 +81,7 @@ for(;;)   //setup number of captures...maybe make this a while?  need to deal wi
     }
    
       video.write(src);
-       //imshow( "Frame", src );  //live feed...
+       imshow( "Frame", src );  //live feed...
        char c = (char)waitKey(33);
        if( c == 27 ) break;
 ]
