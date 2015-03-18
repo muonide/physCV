@@ -45,7 +45,6 @@ for(;;)   //setup number of captures...maybe make this a while?  need to deal wi
     Mat dst, grey;
     cvtColor(src, grey, CV_BGR2GRAY);
     Canny(grey, edges, 50, 200, 3); 
-    //cvtColor(edges, edges, CV_GRAY2BGR); 
     
     vector<Vec2f> lines;
     HoughLines( edges, lines, 1, CV_PI/90, 50, 0, 0 );
@@ -72,12 +71,26 @@ for(;;)   //setup number of captures...maybe make this a while?  need to deal wi
         vector<Point2f>::iterator i;
         for(i = intersections.begin(); i != intersections.end(); ++i)
         {
-            cout << "Intersection is " << i->x << ", " << i->y << endl;
+        //    cout << "Intersection is " << i->x << ", " << i->y << endl;
             circle(src, *i, 1, Scalar(0, 255, 0), 3);
         }
     }
+   	
+   	HoughCircles(gray, circles, CV_HOUGH_GRADIENT,
+                 2, gray->rows/4, 200, 100 );
+    for( size_t i = 0; i < circles.size(); i++ )
+    {
+         Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
+         int radius = cvRound(circles[i][2]);
+         // draw the circle center
+         circle( src, center, 3, Scalar(0,255,0), -1, 8, 0 );
+    }
+   	
    	for( i = 0 ; i < intersection.size() ; i++){
    	cout << "X" << i << "=" << intersection[i][0] << " and Y" << i << "=" << intersection[i][1]; 
+   	}
+   	for (i = 0 ; i < circles.size() ; i++){
+   	cout << "Center X=" << circles[i][0] << " and Center Y=" << circles[i][1]; 
    	}
 	 video.write(src);
        imshow( "Frame", src );  //live feed...
