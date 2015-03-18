@@ -6,12 +6,9 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
 #include <vector>
-#include "boost/date_time/posix_time/posix_time.hpp"
-#include "boost/thread.hpp"
 
 using namespace cv;
 using namespace std;
-using namespace boost::posix_time;
 
 Point2f computeIntersect(Vec2f line1, Vec2f line2);
 vector<Point2f> lineToPointPair(Vec2f line);
@@ -45,7 +42,7 @@ for(;;)   //setup number of captures...maybe make this a while?  need to deal wi
 
  cap >> src;
  
-    Mat dst, cdst, ddst;
+    Mat dst, grey;
     cvtColor(src, grey, CV_BGR2GRAY);
     Canny(grey, edges, 50, 200, 3); 
     //cvtColor(edges, edges, CV_GRAY2BGR); 
@@ -79,8 +76,10 @@ for(;;)   //setup number of captures...maybe make this a while?  need to deal wi
             circle(src, *i, 1, Scalar(0, 255, 0), 3);
         }
     }
-   
-      video.write(src);
+   	for( i = 0 ; i < intersection.size() ; i++){
+   	cout << "X" << i << "=" << intersection[i][0] << " and Y" << i << "=" << intersection[i][1]; 
+   	}
+	 video.write(src);
        imshow( "Frame", src );  //live feed...
        char c = (char)waitKey(33);
        if( c == 27 ) break;
